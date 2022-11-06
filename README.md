@@ -1,0 +1,18 @@
+# oauth2-helper
+
+## 使い方
+
+```console
+> cargo install --git http://github.com/ekuinox/oauth2-helper.git
+> oauth2-helper \
+  -a <OAUTH2_AUTH_URL> \
+  -t <OAUTH2_TOKEN_URL> \
+  -i <OAUTH2_CLIENT_ID> \
+  -e <OAUTH2_CLIENT_SECRET> \
+  -s <SCOPE...>
+authorize_url => [AUTHORIZE_URL]
+ENTER REDIRECTD URL:
+<REDIRECTED_URL HERE>
+access_token: [ACCESS_TOKEN]
+refresh_token: [REFRESH_TOKEN]
+```
