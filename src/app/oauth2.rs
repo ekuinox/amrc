@@ -9,14 +9,15 @@ use oauth2::{
 use std::{collections::HashMap, ops::Deref};
 
 #[derive(Debug)]
-pub struct OAuth2Authorizer {
+pub struct OAuth2Authorizer<'a> {
     authorize_url: Url,
     csrf_state: CsrfToken,
     pkce_verifier: PkceCodeVerifier,
+    client: &'a OAuth2Client,
 }
 
-impl OAuth2Authorizer {
-    pub fn new(client: &OAuth2Client, scopes: Vec<Scope>) -> OAuth2Authorizer {
+impl<'a> OAuth2Authorizer<'a> {
+    pub fn new(client: &'a OAuth2Client, scopes: Vec<Scope>) -> OAuth2Authorizer {
         let (code_challenge, pkce_verifier) = PkceCodeChallenge::new_random_sha256();
         let (authorize_url, csrf_state) = client
             .authorize_url(CsrfToken::new_random)
@@ -27,12 +28,12 @@ impl OAuth2Authorizer {
             authorize_url,
             csrf_state,
             pkce_verifier,
+            client,
         }
     }
 
     pub async fn try_into_token_with_redirect_url(
         self,
-        client: &OAuth2Client,
         redirect_url: Url,
     ) -> Result<StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType>> {
         let params = redirect_url.query_pairs().collect::<HashMap<_, _>>();
@@ -45,7 +46,8 @@ impl OAuth2Authorizer {
             None => bail!("couldn't find pair which key is 'state'"),
         };
         ensure!(state.secret() == self.csrf_state.secret());
-        let token = client
+        let token = self
+            .client
             .exchange_code(code)
             .set_pkce_verifier(self.pkce_verifier)
             .request_async(async_http_client)

@@ -56,7 +56,7 @@ impl App {
         let redirected_url = Url::parse(&line)?;
 
         let token = authorizer
-            .try_into_token_with_redirect_url(&client, redirected_url)
+            .try_into_token_with_redirect_url(redirected_url)
             .await?;
         let access_token = token.access_token().secret();
         let refresh_token = token.refresh_token().map(|t| t.secret());
