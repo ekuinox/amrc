@@ -5,7 +5,7 @@ OAuth2 のトークンを拾ってきたり、それを使ってリクエスト�
 ## 使い方
 
 ```console
-> cargo install --git http://github.com/ekuinox/amrc.git
+> cargo install --git https://github.com/ekuinox/amrc.git
 > amrc init <PRESET_FILE_NAME> \
   [-a <OAUTH2_AUTH_URL>] \
   [-t <OAUTH2_TOKEN_URL>] \
