@@ -11,22 +11,23 @@ use clap::Parser;
 
 #[derive(Parser, Debug)]
 pub struct App {
-    #[clap(long = "auth-url")]
+    #[clap(short = 'a', long = "auth-url")]
     auth_url: AuthUrl,
 
-    #[clap(long = "token-url")]
+    #[clap(short = 't', long = "token-url")]
     token_url: TokenUrl,
 
     #[clap(
+        short = 'r',
         long = "redirect-url",
         default_value = "http://localhost:8080/callback"
     )]
     redirect_url: RedirectUrl,
 
-    #[clap(long = "client-id")]
+    #[clap(short = 'i', long = "client-id")]
     client_id: String,
 
-    #[clap(long = "client-secret")]
+    #[clap(short = 'e', long = "client-secret")]
     client_secret: String,
 
     #[clap(short = 's', long = "scope")]
@@ -48,6 +49,7 @@ impl App {
 
         println!("authorize_url => {authorize_url}");
 
+        println!("ENTER REDIRECTD URL:");
         let line = {
             let mut line = String::new();
             let _ = std::io::stdin().read_line(&mut line)?;
