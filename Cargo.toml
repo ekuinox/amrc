@@ -3,11 +3,15 @@ name = "oauth2-helper"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-serde = { version = "1.0.147", features = ["derive"] }
-serde_yaml = "0.9.14"
+[dependencies.serde]
+version = "1.0.147"
+features = ["derive"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies.serde_yaml]
+version = "0.9.14"
+
+[dependencies.reqwest]
+version = "0.11.12"
 
 [dependencies.anyhow]
 version = "1.0.66"

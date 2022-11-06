@@ -1,7 +1,8 @@
 mod auth;
 mod init;
+mod request;
 
-use self::{auth::AuthSubcommand, init::InitSubcommand};
+use self::{auth::AuthSubcommand, init::InitSubcommand, request::RequestSubcommand};
 use anyhow::Result;
 use clap::Parser;
 
@@ -11,6 +12,8 @@ pub enum Subcommand {
     Init(InitSubcommand),
     #[clap(name = "auth")]
     Auth(AuthSubcommand),
+    #[clap(name = "req")]
+    Req(RequestSubcommand),
 }
 
 impl Subcommand {
@@ -18,6 +21,7 @@ impl Subcommand {
         match self {
             Subcommand::Init(s) => s.run().await,
             Subcommand::Auth(s) => s.run().await,
+            Subcommand::Req(s) => s.run().await,
         }
     }
 }

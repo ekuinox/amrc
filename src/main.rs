@@ -1,6 +1,6 @@
 mod app;
+mod conf;
 mod oauth2;
-mod preset;
 
 use crate::app::App;
 use anyhow::Result;

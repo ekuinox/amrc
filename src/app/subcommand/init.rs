@@ -1,4 +1,4 @@
-use crate::preset::Preset;
+use crate::conf::Preset;
 use anyhow::Result;
 use clap::Parser;
 use oauth2::{AuthUrl, RedirectUrl, Scope, TokenUrl};
@@ -8,6 +8,9 @@ use std::{fs::OpenOptions, io::BufWriter, path::PathBuf};
 pub struct InitSubcommand {
     #[clap(name = "PRESET_FILE_PATH")]
     path: PathBuf,
+
+    #[clap(short = 'b', long = "base-url")]
+    base_url: Option<String>,
 
     #[clap(short = 'a', long = "auth-url")]
     auth_url: Option<String>,
@@ -40,6 +43,7 @@ impl InitSubcommand {
             self.redirect_url
                 .unwrap_or_else(|| "http://localhost:8080/callback".into()),
         )?;
+        let base_url = self.base_url.unwrap_or_else(|| "http://BASE_URL".into());
         let auth_url = AuthUrl::new(self.auth_url.unwrap_or_else(|| "http://AUTH_URL".into()))?;
         let token_url = TokenUrl::new(self.token_url.unwrap_or_else(|| "http://TOKEN_URL".into()))?;
         let scopes = if self.scopes.is_empty() {
@@ -52,6 +56,7 @@ impl InitSubcommand {
             client_id,
             client_secret,
             redirect_url,
+            base_url,
             auth_url,
             token_url,
             scopes,
