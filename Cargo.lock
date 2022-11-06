@@ -3,6 +3,19 @@
 version = 3
 
 [[package]]
+name = "amrc"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "oauth2",
+ "reqwest",
+ "serde",
+ "serde_yaml",
+ "tokio",
+]
+
+[[package]]
 name = "android_system_properties"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -674,19 +687,6 @@ dependencies = [
  "sha2",
  "thiserror",
  "url",
-]
-
-[[package]]
-name = "oauth2-helper"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "oauth2",
- "reqwest",
- "serde",
- "serde_yaml",
- "tokio",
 ]
 
 [[package]]
