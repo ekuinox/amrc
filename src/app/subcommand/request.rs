@@ -18,6 +18,9 @@ pub struct RequestSubcommand {
     method: Method,
 
     path: String,
+
+    #[clap(long = "json")]
+    json: bool,
 }
 
 impl RequestSubcommand {
@@ -36,7 +39,13 @@ impl RequestSubcommand {
             Method::Get => request.send().await?.text().await?,
         };
 
-        print!("{text}");
+        if self.json {
+            let json = serde_json::from_str::<serde_json::Value>(&text)?;
+            let text = serde_json::to_string_pretty(&json)?;
+            println!("{text}");
+        } else {
+            println!("{text}")
+        }
 
         Ok(())
     }
