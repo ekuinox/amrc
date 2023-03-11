@@ -1,0 +1,12 @@
+client_id: <CLIENT_ID_HERE>
+client_secret: <CLIENT_SECRET_HERE>
+base_url: https://api.twitter.com
+redirect_url: http://localhost:3000/callback
+auth_url: https://twitter.com/i/oauth2/authorize
+token_url: https://api.twitter.com/2/oauth2/token
+scopes:
+- offline.access
+- tweet.read
+- users.read
+- list.read
+- list.write
